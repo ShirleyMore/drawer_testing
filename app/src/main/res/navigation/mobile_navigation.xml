@@ -9,7 +9,11 @@
         android:id="@+id/nav_home"
         android:name="com.example.drawer_testing.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_nav_signIn"
+            app:destination="@id/nav_signIn" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_gallery"
@@ -31,5 +35,9 @@
         android:id="@+id/nav_signOut"
         android:name="com.example.drawer_testing.ui.auth.SignOutFragment"
         android:label="fragment_sign_out"
-        tools:layout="@layout/fragment_sign_out" />
+        tools:layout="@layout/fragment_sign_out" >
+        <action
+            android:id="@+id/action_nav_signOut_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
 </navigation>

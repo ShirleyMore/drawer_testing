@@ -3,10 +3,14 @@ package com.example.drawer_testing;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.example.drawer_testing.ui.auth.AuthViewModel;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -15,16 +19,24 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.drawer_testing.databinding.ActivityMainBinding;
+import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = MainActivity.class.getSimpleName();
+
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+
+    AuthViewModel authViewModel;
+    String userName, userEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -47,9 +59,27 @@ public class MainActivity extends AppCompatActivity {
 
         navigationView.setItemIconTintList(null); /// make the icons colorful
 
+        drawer.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                setDrawerHeader();
+            }
+        });
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+    }
+
+    private void setDrawerHeader(){
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
+        userName = "Anonymous";
+        userEmail = "example.example@gomoku.com";
+        TextView displayNameTextView = findViewById(R.id.nav_header_main_name);
+        TextView emailTextView = findViewById(R.id.nav_header_main_email);
+        ImageView imageView = findViewById(R.id.nav_header_main_image);
+
     }
 
     @Override

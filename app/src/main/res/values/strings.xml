@@ -12,5 +12,8 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_signIn">Sign in</string>
     <string name="menu_signOut">Sign Out</string>
+    <string name="string_default_web_client_id">
+        1086590041501-tl3jqsgfd4vbk6cib760bnv733qr0kjt.apps.googleusercontent.com
+    </string>
 
 </resources>
